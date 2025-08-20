@@ -13,6 +13,23 @@ return new class extends Migration
     {
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
+            
+            $table->string('name');             
+            $table->string('email')->unique();  
+            $table->string('phone', 20);      
+            $table->string('photo')->nullable();  
+
+            $table->date('bornDate');           
+            $table->string('registration')->nullable(); 
+            $table->string('cpf', 14)->unique(); 
+            $table->string('rg', 20)->nullable();
+
+            $table->string('cep', 9);           
+            $table->string('address');         
+            $table->string('number', 10);       
+            $table->string('city');              
+            $table->string('state', 2);  
+                    
             $table->timestamps();
         });
     }
