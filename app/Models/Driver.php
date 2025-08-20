@@ -18,7 +18,23 @@ class Driver extends Model
         'address',
         'number',
         'city',
-        'state'
+        'state',
+        'photo'
     ];
+
+    public function travels()
+    {
+        return $this->hasMany(Travel::class);
+    }
+
+    public function travelsOn($date, $time)
+    {
+        return $this->travels()->where('date', $date)->where('departure_time', $time);
+    }
+    
+    public function isAvailable($date, $time)
+    {
+        return $this->travelsOn($date, $time)->doesntExist();
+    }
 
 }
