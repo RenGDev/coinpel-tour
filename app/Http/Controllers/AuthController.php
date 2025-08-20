@@ -10,16 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
-    {
-        $validate = $request->validate([
-            'name' => ['required', 'string', 'max:50'],
-            'email' => ['required', 'string', 'email', 'min:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed']
-        ]);
-
-        $user = User::create($validate);
-    }
 
     public function login(Request $request)
     {
@@ -30,22 +20,25 @@ class AuthController extends Controller
 
         if (Auth::attempt($validate)){
             $request->session()->regenerate();
-            return to_route('home.users');
+
+            if($request->user()->is_admin){
+                return to_route('users.index');
+            }else{
+                return to_route('drivers.index');
+            }
         }
 
         return back()->with([
-            'fail' => 'the provided credentials do not match our records.'
+            'fail' => 'Alguma das credencias digitadas não corresponde a nenhum usuario.'
         ]);
     }
 
     public function logout(Request $request)
     {
         Auth::logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
-        return view('login');
+        return redirect('/');
     }
 }
