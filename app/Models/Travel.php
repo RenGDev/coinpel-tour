@@ -8,6 +8,8 @@ use App\Enums\TravelRule;
 
 class Travel extends Model
 {
+    protected $table = 'travels';
+    
     protected $fillable = [
         'name',
         'rule',
@@ -29,6 +31,12 @@ class Travel extends Model
     public function driver()
     {
         return $this->belongsTo(Driver::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'travel_user')
+                    ->withTimestamps();
     }
 
     public function scopeVehicleAvailable($query, $vehicleId, $date, $time)

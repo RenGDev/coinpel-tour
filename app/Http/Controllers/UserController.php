@@ -33,7 +33,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
-            'is_admin' => 'nullable|boolean'
+            'is_admin' => 'nullable|boolean',
         ]);
 
         User::create([
@@ -64,14 +64,12 @@ class UserController extends Controller
         $request->validate([
             'name' => 'sometimes|string|max:255',
             'email' => 'sometimes|email|unique:users,email,' . $user->id,
-            'password' => 'nullable|min:8',
             'photo' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
         $updates = [
-            'name' => $request->name ?? $driver->name,
-            'email' => $request->email ?? $driver->email,
-            'password' => 'nullable|min:8'
+            'name' => $request->name ?? $user->name,
+            'email' => $request->email ?? $user->email,
         ];
 
 
@@ -87,6 +85,22 @@ class UserController extends Controller
         $user->update($updates);
 
         return back()->with('success', 'Usuário atualizado com sucesso!');
+    }
+
+    public function toggleBlock($id)
+    {
+        $user = User::findOrFail($id);
+
+        // Não bloqueia a si mesmo
+        if(auth()->id() == $user->id){
+            return back()->with('fail', 'Você não pode bloquear a si mesmo!');
+        }
+
+        $user->is_blocked = !$user->is_blocked;
+        $user->save();
+
+        $status = $user->is_blocked ? 'bloqueado' : 'desbloqueado';
+        return back()->with('success', "Usuário {$status} com sucesso!");
     }
 
     /**

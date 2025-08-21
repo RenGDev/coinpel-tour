@@ -19,17 +19,30 @@
             @endif
 
             <div class="d-flex flex-column w-50 gap-3">
+                
                 <span>Faça login:</span>   
                 <input class="form-control fw-lighter" type="email" name="email" id="email" placeholder="E-mail">  
                 <input class="form-control fw-lighter" type="password" name="password" id="password" placeholder="Password">
                 <button class="btn btn-primary" style="background-color: rgba(89, 62, 117, 1)" type="submit">Entrar</button>
-            </div>   
-                    
+            </div>          
         </form>
     </div>
+    @if(isset($showPasswordModal) && $showPasswordModal)
+        @include('components.change-password-modal')
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const modal = document.getElementById("passwordModalInline");
+                modal.style.display = "block"; // abre o modal
+            });
+        
+            function closePasswordModal() {
+                document.getElementById("passwordModalInline").style.display = "none";
+            }
+        </script>
+    @endif
 
-    
 @endsection
+
 
 
 

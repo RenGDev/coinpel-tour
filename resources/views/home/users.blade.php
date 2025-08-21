@@ -83,7 +83,7 @@
                                 <i class="bi bi-three-dots fs-3 text-dark"></i>
                             </button>
                             <ul class="dropdown-menu border-0 dropdown-menu-start p-0">
-                                <!-- Botão Editar -->
+    
                                 <li class="border shadow-sm mb-2 rounded">
                                     <button class="dropdown-item rounded d-flex gap-2" 
                                             type="button" 
@@ -98,7 +98,14 @@
                                     </button>
                                 </li>
                                 <li class="border shadow-sm mb-2 rounded">
-                                    <button class="dropdown-item rounded" type="button"><i class="bi bi-ban"></i> Bloquear Usuário</button>
+                                    <form action="{{ route('users.toggleBlock', $user->id) }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit" class="dropdown-item rounded d-flex gap-2">
+                                            <i class="bi bi-ban"></i>
+                                            {{ $user->is_blocked ? 'Desbloquear Usuário' : 'Bloquear Usuário' }}
+                                        </button>
+                                    </form>
                                 </li>
                                 <li class="border shadow-sm rounded">
                                     <form action="{{ route('users.destroy', $user->id) }}" method="POST">

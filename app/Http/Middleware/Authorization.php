@@ -17,7 +17,7 @@ class Authorization
     public function handle(Request $request, Closure $next): Response
     {
         if(!auth()->user()->is_admin){
-            return to_route('drivers.index');
+            return to_route('travels.packages');
         }
         return $next($request);
     }

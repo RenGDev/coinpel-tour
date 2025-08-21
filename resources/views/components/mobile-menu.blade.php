@@ -40,35 +40,34 @@
                     <i class="bi bi-people-fill text-white fs-4"></i>
                     <a href="{{ route('users.index') }}" class="nav-link text-white">Clientes</a>
                 </li>
-            @endif
             
-            <li class="nav-item d-flex align-items-center m-0">
-                <i class="bi bi-people text-white fs-4"></i>
-                <a href="{{ route('drivers.index') }}" class="nav-link text-white">Motoristas</a>
-            </li>
             
-            @if (auth()->user()->is_admin)
+                <li class="nav-item d-flex align-items-center m-0">
+                    <i class="bi bi-people text-white fs-4"></i>
+                    <a href="{{ route('drivers.index') }}" class="nav-link text-white">Motoristas</a>
+                </li>
+            
                 <li class="nav-item d-flex align-items-center m-0">
                     <i class="bi bi-graph-up text-white fs-4"></i>
                     <a href="{{ route('statistics.index') }}" class="nav-link text-white">Estatísticas</a>
                 </li> 
-            @endif
             
-            <li class="nav-item d-flex align-items-center m-0">
-                <i class="bi bi-bus-front text-white fs-4"></i>
-                <a href="{{ route('vehicles.index') }}" class="nav-link text-white">Veiculos</a>
-            </li>
-            <li class="nav-item d-flex align-items-center m-0">
-                <i class="bi bi-bus-front-fill text-white fs-4"></i>
-                <a href="{{ route('travels.index') }}" class="nav-link text-white">Viagens</a>
-            </li>
+                <li class="nav-item d-flex align-items-center m-0">
+                    <i class="bi bi-bus-front text-white fs-4"></i>
+                    <a href="{{ route('vehicles.index') }}" class="nav-link text-white">Veiculos</a>
+                </li>
+                <li class="nav-item d-flex align-items-center m-0">
+                    <i class="bi bi-bus-front-fill text-white fs-4"></i>
+                    <a href="{{ route('travels.index') }}" class="nav-link text-white">Viagens</a>
+                </li>
+            @endif
             <li class="nav-item d-flex align-items-center m-0">
                 <i class="bi bi-journal-text text-white fs-4"></i>
                 <a href="#" class="nav-link text-white">Contratos</a>
             </li>
             <li class="nav-item d-flex align-items-center m-0">
                 <i class="bi bi-wallet2 text-white fs-4"></i>
-                <a href="#" class="nav-link text-white">Pacotes</a>
+                <a href="{{ route('travels.packages') }}" class="nav-link text-white">Pacotes</a>
             </li>
         </ul>
     </div>

@@ -18,20 +18,35 @@ class AuthController extends Controller
             'password' => ['required', 'string']
         ]);
 
-        if (Auth::attempt($validate)){
-            $request->session()->regenerate();
-
-            if($request->user()->is_admin){
-                return to_route('users.index');
-            }else{
-                return to_route('drivers.index');
-            }
+        $user = User::where('email', $validate['email'])->first();
+    
+        if (!$user || !\Hash::check($validate['password'], $user->password)) {
+            return back()->with([
+                'fail' => 'Alguma das credenciais digitadas não corresponde a nenhum usuário.'
+            ]);
         }
 
-        return back()->with([
-            'fail' => 'Alguma das credencias digitadas não corresponde a nenhum usuario.'
-        ]);
+        if ($user->is_blocked) {
+            return back()->with([
+                'fail' => 'Sua conta está bloqueada. Contate o administrador.'
+            ]);
+        }
+
+        if ($user->first_time) {
+            return view('login', [
+                'showPasswordModal' => true,
+                'user' => $user
+            ]);
+        }
+
+        Auth::login($user);
+        $request->session()->regenerate();
+
+        return $user->is_admin
+            ? to_route('users.index')
+            : to_route('travels.contracts');
     }
+
 
     public function logout(Request $request)
     {
@@ -41,4 +56,19 @@ class AuthController extends Controller
 
         return redirect('/');
     }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|string|confirmed|min:8',
+        ]);
+    
+        $user = User::findOrFail($request->user_id);
+        $user->password = bcrypt($request->password);
+        $user->first_time = false;
+        $user->save();
+    
+        return redirect('/')->with('success', 'Senha alterada com sucesso!');
+    }
+
 }

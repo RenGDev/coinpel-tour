@@ -23,7 +23,8 @@ class User extends Authenticatable
         'password',
         'photo',
         'is_admin',
-        'first_time'
+        'first_time',
+        'is_blocked'
     ];
 
     /**
@@ -48,4 +49,11 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function travels()
+    {
+        return $this->belongsToMany(Travel::class, 'travel_user')
+                    ->withTimestamps();
+    }
+
 }
