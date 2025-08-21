@@ -62,18 +62,28 @@ Copie o arquivo da .env.example para .env
 
 Dentro da .env identifique: 
 
-APP_NAME=CoinpelTour
-APP_ENV=local
-APP_KEY=
-APP_DEBUG=true
-APP_URL=http://localhost:8000/
+APP_NAME=CoinpelTour  
 
-DB_CONNECTION=pgsql
-DB_HOST=127.0.0.1
-DB_PORT=5432
-DB_DATABASE=coinpel_tour
-DB_USERNAME=root
-DB_PASSWORD=
+APP_ENV=local  
+
+APP_KEY=  
+
+APP_DEBUG=true  
+
+APP_URL=http://localhost:8000/  
+
+
+DB_CONNECTION=pgsql  
+
+DB_HOST=127.0.0.1  
+
+DB_PORT=5432  
+
+DB_DATABASE=coinpel_tour  
+
+DB_USERNAME=postgres // Normalmente o usuario padrão do postgres
+
+DB_PASSWORD= {Senha do seu usuario}
 
 ## Banco de dados
 
