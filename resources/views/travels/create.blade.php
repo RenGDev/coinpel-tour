@@ -78,7 +78,7 @@
 </form>
 
 <div class="d-flex align-items-center gap-2 ms-5 mb-4">
-    <button type="submit" class="btn btn-primary px-4" style="background-color: rgba(89, 62, 117, 1);" form="editTravelForm">Registrar veiculo</button>
+    <button type="submit" class="btn btn-primary px-4" style="background-color: rgba(89, 62, 117, 1);" form="editTravelForm">Registrar viagem</button>
     <a href="{{ route('travels.index') }}" class="btn border-dark fw-bold px-3" style="cursor: pointer">Cancelar</a>
 </div>
 @endsection
