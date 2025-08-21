@@ -110,6 +110,10 @@ $ php artisan db:seed
 
 ```
 
+email do admin criado: admin@gmail.com  
+
+senha do admin criado: 123456  
+
 Rode o projeto:
 ```
 $ composer run dev
